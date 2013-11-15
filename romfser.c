@@ -18,7 +18,6 @@
 #include <arpa/inet.h>
 
 #define	NEXT_MASK	0x7ffffff0
-#define	CHECK_ARG(x)	if (x == NULL)	error("Argument not supplied for option\n");
 
 #define	ROMFS_ID	"-rom1fs-"
 enum {
@@ -134,7 +133,8 @@ int	main(argc, argv)
 		switch(flags[i])
 		{
 			case	'e':
-				CHECK_ARG(argv[1]);
+				if (argc < 2)
+					error("Missing flag argument\n");
 				exec_funcs[i].func = extract_inode;
 				my_strlcpy(exec_funcs[i].name, argv[1], MAX_NAME);
 				argc--;argv++;
@@ -145,8 +145,8 @@ int	main(argc, argv)
 			break;
 
 			case	's':
-				CHECK_ARG(argv[1]);
-				CHECK_ARG(argv[2]);
+				if (argc < 3)
+					error("Missing flag arguments\n");
 				exec_funcs[i].func = sub_inode;
 				my_strlcpy(exec_funcs[i].name, argv[1], MAX_NAME);
 				my_strlcpy(exec_funcs[i].sname, argv[2], MAX_NAME);
