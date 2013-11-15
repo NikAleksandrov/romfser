@@ -1,0 +1,15 @@
+romfser - RomFS manipulation tool
+
+With this little tool you can do some limited manipulation of RomFS images.
+Compilation:
+ # make
+This should create an executable called romfser in the current directory.
+
+Running romfser without any arguments will output the following usage message:
+	Usage: romfser <image file> <offset in image> <flags> [flags args]
+	Example: romfser a.img 802 le touch.css
+	The previous example lists all files and directories of the RomFS image a.img with RomFS starting at 802
+	bytes offset from the beginning of the image and extracts touch.css in the current directory
+	Flags: l - list, e - extract 1 file (1 arg), a - extract all with dir structure in current directory
+	       s - substitute two files, the new file should be <= the other file's size since it's overwritten
+	           without any header changes
